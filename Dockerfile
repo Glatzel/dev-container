@@ -1,15 +1,13 @@
-FROM debian:bullseye
+FROM ubuntu:latest
 
 ENV PATH="/root/.cargo/bin:/root/.pixi/bin:${PATH}"
 
 # Update and install common dependencies
 RUN apt-get update && apt-get install -y \
-    apt-transport-https \
     aria2 \
     build-essential \
     curl \
     git \
-    gnupg \
     jq \
     libsqlite3-dev \
     libtool \
