@@ -21,5 +21,7 @@ RUN wget -q https://packages.microsoft.com/config/debian/11/packages-microsoft-p
 # Clean up APT cache
 RUN rm -rf /var/lib/apt/lists/*
 
-# Install Pixi
+# Install Pixi and global tools
 RUN curl -fsSL https://pixi.sh/install.sh | sh
+COPY ./pixi-global.toml ~/.pixi/manifests/pixi-global.toml
+RUN pixi global update
