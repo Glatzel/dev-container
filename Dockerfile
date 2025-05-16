@@ -4,7 +4,20 @@ ENV PATH="/root/.cargo/bin:/root/.pixi/bin:${PATH}"
 
 # Update and install common dependencies
 RUN apt-get update && apt-get install -y \
-    curl build-essential git wget gnupg apt-transport-https software-properties-common
+    apt-transport-https \
+    aria2 \
+    build-essential \
+    curl \
+    git \
+    gnupg \
+    jq \
+    libsqlite3-dev \
+    libtool \
+    p7zip-full \
+    p7zip-rar \
+    pkg-config \
+    software-properties-common \
+    wget
 
 # Install Rust
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y\
