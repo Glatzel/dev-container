@@ -10,13 +10,7 @@ RUN apt-get update && apt-get install -y \
 RUN curl https://sh.rustup.rs -sSf | bash -s -- -y\
     && /root/.cargo/bin/rustup install nightly \
     && /root/.cargo/bin/rustup default stable \
-    && /root/.cargo/bin/rustup component add rustfmt clippy \
-    && cargo +stable install cargo-llvm-cov \
-    && cargo +stable install cargo-machete \
-    && cargo +stable install cargo-nextest --locked \
-    && cargo +nightly install cargo-llvm-cov \
-    && cargo +nightly install cargo-machete \
-    && cargo +nightly install cargo-nextest --locked
+    && /root/.cargo/bin/rustup component add rustfmt clippy
 
 # Install Microsoft packages (PowerShell)
 RUN wget -q https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb \
