@@ -28,4 +28,3 @@ USER runner
 
 # set the entrypoint to the start.sh script
 ENTRYPOINT ["./start-runner.sh"]
-
