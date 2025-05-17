@@ -8,7 +8,7 @@ RUN chmod +x /tmp/install-deps.sh && /tmp/install-deps.sh
 
 # Install Pixi
 RUN curl -fsSL https://pixi.sh/install.sh | sh
-COPY ./config/pixi-global.toml /root/.pixi/manifests/pixi-global.toml
+COPY ./dev-container/config/pixi-global.toml /root/.pixi/manifests/pixi-global.toml
 
 # Clean up APT cache
 RUN rm -rf /var/lib/apt/lists/*

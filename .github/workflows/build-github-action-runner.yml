@@ -20,7 +20,7 @@ jobs:
     - id: get-version
       env:
         GH_TOKEN: ${{ github.token }}
-      run: ./image/scripts/get-runner-version.ps1
+      run: ./image/github-action-runner/scripts/get-runner-version.ps1
       shell: pwsh
 
     - name: Build Docker image
