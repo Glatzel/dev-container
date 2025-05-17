@@ -29,8 +29,8 @@ RUN apt-get update && apt-get install -y \
 #     && apt-get update \
 #     && apt-get install -y powershell
 
-# # Clean up APT cache
-# RUN rm -rf /var/lib/apt/lists/*
+# Clean up APT cache
+RUN rm -rf /var/lib/apt/lists/*
 
 # # Install Pixi
 # RUN curl -fsSL https://pixi.sh/install.sh | sh
