@@ -6,6 +6,8 @@ $GH_REPOSITORY = $env:GH_REPOSITORY
 $GH_TOKEN = $env:GH_TOKEN
 $USE_PROXY = $env:USE_PROXY
 
+sudo su - runner
+
 # Set Proxy
 if ($USE_PROXY) {
     $env:HTTP_PROXY = "http://host.docker.internal:10808"

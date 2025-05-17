@@ -18,7 +18,7 @@ param(
 # Prompt for Repo if still missing
 if (-not $Repo) {
   do {
-    $Repo = Read-Host 'Enter GitHub repository (e.g. owner/repo)'
+    $Repo = Read-Host 'Enter GitHub repository name'
   } while (-not $Repo)
 }
 

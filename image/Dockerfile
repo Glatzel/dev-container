@@ -42,10 +42,13 @@ RUN if [ -n "${RUNNER_VERSION}" ]; then \
 
 # === GitHub Actions Runner Installation (optional) ===
 RUN if [ -n "${RUNNER_VERSION}" ]; then \
-      mkdir -p /actions-runner && cd /actions-runner && \
+      useradd -m runner && \
+      cd /home/runner && mkdir actions-runner && cd actions-runner && \
       curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz && \
       tar xzf actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz; \
     fi
-
+RUN if [ -n "${RUNNER_VERSION}" ]; then \
+        chown -R runner ~runner && /home/runner/actions-runner/bin/installdependencies.sh; \
+    fi
 # Add and make the start script executable
-COPY ./scripts/start-runner.ps1 /usr/local/bin/start-runner.ps1
+ADD ./scripts/start-runner.ps1 ./scripts/start-runner.ps1
