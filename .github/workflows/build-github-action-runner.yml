@@ -1,4 +1,4 @@
-name: Build and Push Docker Image
+name: Build github action runner
 
 on:
   workflow_dispatch:
