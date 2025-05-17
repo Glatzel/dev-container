@@ -1,0 +1,16 @@
+titleOnly: true
+types:
+  # https://www.conventionalcommits.org/zh-hans/v1.0.0/
+  # https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines
+  - feat
+  - fix
+  - docs
+  - style
+  - refactor
+  - perf
+  - test
+  - build
+  - ci
+  - chore
+  - revert
+  # others
