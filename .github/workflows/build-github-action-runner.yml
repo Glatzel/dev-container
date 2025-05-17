@@ -26,12 +26,12 @@ jobs:
     - name: Build Docker image
       run: |
         echo "Runner version is ${{ steps.get-version.outputs.version }}"
-        docker build \
+        docker build -f github-action-runner/Dockerfile \
           --build-arg RUNNER_VERSION=${{ steps.get-version.outputs.version }} \
           -t glatzel/github-action-runner:latest \
           -t glatzel/github-action-runner:${{ steps.get-version.outputs.version }} \
           .
-      working-directory: image/github-action-runner
+      working-directory: image
 
     - name: Push Docker image
       run: |
