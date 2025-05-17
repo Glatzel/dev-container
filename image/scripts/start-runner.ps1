@@ -29,7 +29,7 @@ $jsonObj = gh api --method POST -H "Accept: application/vnd.github.v3+json" "/re
 $regToken = (ConvertFrom-Json -InputObject $jsonObj).token
 
 # Change directory to actions-runner folder
-Set-Location -Path '/actions-runner'
+Set-Location -Path '/home/runner/actions-runner'
 
 # Configure the runner (unattended mode)
 ./config.sh --unattended --url "https://github.com/$GH_OWNER/$GH_REPOSITORY" --token $regToken --name $runnerName
