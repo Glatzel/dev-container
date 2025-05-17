@@ -34,6 +34,9 @@ RUN rm -rf /var/lib/apt/lists/*
 # Install Pixi and global tools
 RUN curl -fsSL https://pixi.sh/install.sh | sh
 COPY ./pixi-global.toml /root/.pixi/manifests/pixi-global.toml
+RUN if [ -n "$RUNNER_VERSION" ]; then \
+    pixi global update && pixi clean cache -y \
+    fi
 
 # === GitHub Actions Runner Installation (optional) ===
 RUN if [ -n "$RUNNER_VERSION" ]; then \

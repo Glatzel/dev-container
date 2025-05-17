@@ -10,9 +10,9 @@
   },
   "workspaceFolder": "/workspace",
   "mounts": [
-    "source=${localWorkspaceFolder},target=/workspace,type=bind"
+    "source=${localWorkspaceFolder}/workspace,target=/workspace,type=bind"
   ],
-  "postCreateCommand": "pwsh -f '/workspace/scripts/create-startup.ps1' ",
+  "postCreateCommand": "pwsh -f '/workspace/.devcontainer/container-startup.ps1' ",
   "customizations": {
     "vscode": {
       "settings": {
@@ -30,7 +30,8 @@
       "extensions": [
         "rust-lang.rust-analyzer",
         "charliermarsh.ruff",
-        "ms-python.python"
+        "ms-python.python",
+        "tamasfe.even-better-toml"
       ]
     }
   }
