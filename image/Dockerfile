@@ -18,17 +18,16 @@ RUN apt-get update && apt-get install -y \
     wget
 
 # Install Rust
-RUN curl https://sh.rustup.rs -sSf | bash -s -- -y\
+RUN curl https://sh.rustup.rs -sSf | bash -s -- -y \
     && /root/.cargo/bin/rustup install nightly \
     && /root/.cargo/bin/rustup default stable \
     && /root/.cargo/bin/rustup component add rustfmt clippy
 
-# Install Microsoft packages (PowerShell)
+# Install PowerShell
 RUN wget -q https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb \
     && dpkg -i packages-microsoft-prod.deb \
     && apt-get update \
     && apt-get install -y powershell
-
 # Clean up APT cache
 RUN rm -rf /var/lib/apt/lists/*
 
@@ -36,20 +35,18 @@ RUN rm -rf /var/lib/apt/lists/*
 RUN curl -fsSL https://pixi.sh/install.sh | sh
 COPY ./pixi-global.toml /root/.pixi/manifests/pixi-global.toml
 
-# github action runner==================================================================================================
+# === GitHub Actions Runner Installation (optional) ===
 RUN if [ -n "$RUNNER_VERSION" ]; then \
-        mkdir /actions-runner && cd /actions-runner && \
-        && curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz &&\
-        && tar xzf ./actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz; `
-        fi
+      mkdir -p /actions-runner && cd /actions-runner && \
+      curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz && \
+      tar xzf actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz; \
+    fi
 
-# install some additional dependencies
+# Install runner dependencies if runner was installed
 RUN if [ -n "$RUNNER_VERSION" ]; then \
       /actions-runner/bin/installdependencies.sh; \
     fi
 
-# add over the start.sh script
-ADD scripts/start-runner.sh /start-runner.sh
-
-# make the script executable
-RUN chmod +x /start-runner.sh
+# Add and make the start script executable
+COPY ./scripts/start-runner.sh /usr/local/bin/start-runner.sh
+RUN chmod +x /usr/local/bin/start-runner.sh
