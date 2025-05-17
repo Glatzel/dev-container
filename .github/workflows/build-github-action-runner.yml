@@ -19,13 +19,14 @@ jobs:
 
     - name: Build Docker image
       run: |
-        VERSION=pwsh -f './scripts/get-runner-version.ps1'
+        VERSION=$(pwsh -f './scripts/get-runner-version.ps1')
         echo "github runner version ${VERSION}"
         docker build \
           --build-arg RUNNER_VERSION=${VERSION}
           -t glatzel/github-action-runner:latest \
           -t glatzel/github-action-runner:${VERSION} \
           .
+      working-directory: image
 
         docker push glatzel/github-action-runner:latest
         docker push glatzel/github-action-runner:${VERSION}
