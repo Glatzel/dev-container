@@ -1,8 +1,9 @@
 services:
   runner:
     image: glatzel/github-action-runner:latest
-    command: /usr/local/bin/start-runner.sh
+    command: pwsh -f '/usr/local/bin/start-runner.ps1'
     environment:
       - GH_OWNER=${GH_OWNER}
       - GH_REPOSITORY=${GH_REPOSITORY}
       - GH_TOKEN=${GH_TOKEN}
+      - USE_PROXY=${USE_PROXY}

@@ -45,11 +45,5 @@ RUN if [ -n "$RUNNER_VERSION" ]; then \
       tar xzf actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz; \
     fi
 
-# Install runner dependencies if runner was installed
-RUN if [ -n "$RUNNER_VERSION" ]; then \
-      /actions-runner/bin/installdependencies.sh; \
-    fi
-
 # Add and make the start script executable
-COPY ./scripts/start-runner.sh /usr/local/bin/start-runner.sh
-RUN chmod +x /usr/local/bin/start-runner.sh
+COPY ./scripts/start-runner.ps1 /usr/local/bin/start-runner.ps1

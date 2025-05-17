@@ -1,20 +1,3 @@
-<#
-.SYNOPSIS
-  Spin up N GitHub Action runners in Docker Compose.
-
-.PARAMETER Owner
-  GitHub owner (user or org). Defaults to 'Glatzel'.
-
-.PARAMETER Repo
-  GitHub repository name (can also be set in $env:GH_REPOSITORY).
-
-.PARAMETER Token
-  GitHub registration token (can also be set in $env:GH_TOKEN).
-
-.PARAMETER Count
-  Number of runner instances to launch.
-
-#>
 param(
   [Parameter(Mandatory = $false)]
   [string]$Owner = 'Glatzel',
@@ -26,7 +9,9 @@ param(
   [string]$Token = $env:GH_TOKEN,
 
   [Parameter(Mandatory = $false)]
-  [int]$Count
+  [int]$Count,
+
+  [switch] $Proxy
 )
 
 
@@ -50,12 +35,13 @@ if (-not $Count -or $Count -lt 1) {
     $raw = Read-Host 'Enter number of runners to start (must be >= 1)'
   } while (-not [int]::TryParse($raw, [ref]$Count) -or $Count -lt 1)
 }
-
+# Set Proxy
 # Confirm values
 Write-Host "Runner count: $Count"
 Write-Host "Owner:        $Owner"
 Write-Host "Repository:   $Repo"
 Write-Host "Token:        ************"
+Write-Host "Proxy:        $Proxy"
 Write-Host ""
 
 # Change to script directory
@@ -65,6 +51,7 @@ Set-Location $PSScriptRoot
 $env:GH_OWNER = $Owner
 $env:GH_REPOSITORY = $Repo
 $env:GH_TOKEN = $Token
+$env:USE_PROXY = $Proxy
 
 # Launch runners
 docker-compose -p $Repo up --scale runner=$Count -d
