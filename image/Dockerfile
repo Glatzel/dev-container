@@ -51,4 +51,9 @@ RUN if [ -n "${RUNNER_VERSION}" ]; then \
         chown -R runner ~runner && /home/runner/actions-runner/bin/installdependencies.sh; \
     fi
 # Add and make the start script executable
-ADD ./scripts/start-runner.ps1 ./scripts/start-runner.ps1
+ADD scripts/start-runner.sh start-runner.sh
+
+# make the script executable
+RUN if [ -n "${RUNNER_VERSION}" ]; then \
+        chmod +x start-runner.sh;
+    fi
