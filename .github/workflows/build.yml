@@ -1,10 +1,48 @@
-name: Build github action runner
+name: Build
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "*.md"
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - ready_for_review
+  schedule:
+    - cron: 16 0 * * 1
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  build:
+  dev-container:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Log in to DockerHub
+      uses: docker/login-action@v3
+      with:
+        username: glatzel
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build Docker image
+      run: docker build -f dev-container/Dockerfile -t glatzel/dev-container:latest .
+      working-directory: image
+
+    - name: Push Docker image
+      if: ${{github.event_name !='pull_request'}}
+      run: |
+        docker push glatzel/dev-container:latest
+
+
+  github-action-runner:
     runs-on: ubuntu-latest
 
     steps:
@@ -34,6 +72,7 @@ jobs:
       working-directory: image
 
     - name: Push Docker image
+      if: ${{github.event_name !='pull_request'}}
       run: |
         docker push glatzel/github-action-runner:latest
         docker push glatzel/github-action-runner:${{ steps.get-version.outputs.version }}
