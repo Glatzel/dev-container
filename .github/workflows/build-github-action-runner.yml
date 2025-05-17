@@ -18,6 +18,8 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - id: get-version
+      env:
+        GH_TOKEN: ${{ github.token }}
       run: ./image/scripts/get-runner-version.ps1
       shell: pwsh
 
