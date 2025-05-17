@@ -3,11 +3,11 @@ ARG RUNNER_VERSION
 ENV PATH="/root/.cargo/bin:/root/.pixi/bin:${PATH}"
 
 # # Update and install common dependencies
-# RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y \
 #     aria2 \
 #     build-essential \
-#     curl \
-#     git \
+    curl \
+    git \
 #     jq \
 #     libsqlite3-dev \
 #     libtool \
@@ -15,7 +15,7 @@ ENV PATH="/root/.cargo/bin:/root/.pixi/bin:${PATH}"
 #     p7zip-rar \
 #     pkg-config \
 #     software-properties-common \
-#     wget
+    wget
 
 # # Install Rust
 # RUN curl https://sh.rustup.rs -sSf | bash -s -- -y \
