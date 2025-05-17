@@ -36,12 +36,12 @@ RUN rm -rf /var/lib/apt/lists/*
 RUN curl -fsSL https://pixi.sh/install.sh | sh
 COPY ./config/pixi-global.toml /root/.pixi/manifests/pixi-global.toml
 # install pixi global tools on runner
-RUN if [ -n "$RUNNER_VERSION" ]; then \
+RUN if [ -n "${RUNNER_VERSION}" ]; then \
     pixi global update && pixi clean cache -y \
     fi
 
 # === GitHub Actions Runner Installation (optional) ===
-RUN if [ -n "$RUNNER_VERSION" ]; then \
+RUN if [ -n "${RUNNER_VERSION}" ]; then \
       mkdir -p /actions-runner && cd /actions-runner && \
       curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz && \
       tar xzf actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz; \
