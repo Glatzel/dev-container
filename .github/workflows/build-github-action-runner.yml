@@ -27,7 +27,7 @@ jobs:
       run: |
         echo "Runner version is ${{ steps.get-version.outputs.version }}"
         docker build \
-          --build-arg RUNNER_VERSION=${{ steps.get-version.outputs.version }}
+          --build-arg RUNNER_VERSION=${{ steps.get-version.outputs.version }} \
           -t glatzel/github-action-runner:latest \
           -t glatzel/github-action-runner:${{ steps.get-version.outputs.version }} \
           .
