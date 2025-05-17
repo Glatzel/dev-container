@@ -51,7 +51,13 @@ Set-Location $PSScriptRoot
 $env:GH_OWNER = $Owner
 $env:GH_REPOSITORY = $Repo
 $env:GH_TOKEN = $Token
-$env:USE_PROXY = $Proxy
+if ($Proxy) {
+  $env:HTTP_PROXY = "http://host.docker.internal:10808"
+  $env:HTTPS_PROXY = "http://host.docker.internal:10808"
+  $env:http = "http://host.docker.internal:10808"
+  $env:https_proxy = "http://host.docker.internal:10808"
+}
+
 
 # Launch runners
 docker-compose -p $Repo up --scale runner=$Count -d
