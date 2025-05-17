@@ -27,12 +27,7 @@
         },
         "terminal.integrated.defaultProfile.linux": "pwsh"
       },
-      "extensions": [
-        "rust-lang.rust-analyzer",
-        "charliermarsh.ruff",
-        "ms-python.python",
-        "tamasfe.even-better-toml"
-      ]
+      "copyExtensions": true
     }
   }
 }
