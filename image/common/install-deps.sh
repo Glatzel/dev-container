@@ -18,7 +18,7 @@ apt-get install -y --no-install-recommends \
     pkg-config \
     software-properties-common \
     unzip \
-    wget 
+    wget
 
 # install pwsh
 wget -q https://packages.microsoft.com/config/debian/11/packages-microsoft-prod.deb \
