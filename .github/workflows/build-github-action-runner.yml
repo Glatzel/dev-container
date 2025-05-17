@@ -17,14 +17,17 @@ jobs:
         username: glatzel
         password: ${{ secrets.DOCKER_PASSWORD }}
 
+    - id: get-version
+      run: ./image/scripts/get-runner-version.ps1
+      shell: pwsh
+
     - name: Build Docker image
       run: |
-        VERSION=$(pwsh -f './scripts/get-runner-version.ps1')
-        echo "github runner version ${VERSION}"
+        echo "Runner version is ${{ steps.get-version.outputs.version }}"
         docker build \
-          --build-arg RUNNER_VERSION=${VERSION}
+          --build-arg RUNNER_VERSION=${{ steps.get-version.outputs.version }}
           -t glatzel/github-action-runner:latest \
-          -t glatzel/github-action-runner:${VERSION} \
+          -t glatzel/github-action-runner:${{ steps.get-version.outputs.version }} \
           .
       working-directory: image
 
