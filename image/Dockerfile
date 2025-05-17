@@ -1,5 +1,5 @@
 FROM ubuntu:latest
-
+ARG RUNNER_VERSION
 ENV PATH="/root/.cargo/bin:/root/.pixi/bin:${PATH}"
 
 # Update and install common dependencies
@@ -35,3 +35,21 @@ RUN rm -rf /var/lib/apt/lists/*
 # Install Pixi and global tools
 RUN curl -fsSL https://pixi.sh/install.sh | sh
 COPY ./pixi-global.toml /root/.pixi/manifests/pixi-global.toml
+
+# github action runner==================================================================================================
+RUN if [ -n "$RUNNER_VERSION" ]; then \
+        mkdir /actions-runner && cd /actions-runner && \
+        && curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz &&\
+        && tar xzf ./actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz; `
+        fi
+
+# install some additional dependencies
+RUN if [ -n "$RUNNER_VERSION" ]; then \
+      /actions-runner/bin/installdependencies.sh; \
+    fi
+
+# add over the start.sh script
+ADD scripts/start-runner.sh /start-runner.sh
+
+# make the script executable
+RUN chmod +x /start-runner.sh

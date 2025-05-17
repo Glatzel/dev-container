@@ -18,8 +18,8 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
 
     - name: Build Docker image
-      run: |
-        docker build -t glatzel/dev-container:latest .
+      run: docker build -t glatzel/dev-container:latest .
+      working-directory: image
 
     - name: Push Docker image
       run: |

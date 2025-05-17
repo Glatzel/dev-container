@@ -1,0 +1,31 @@
+name: Build and Push Docker Image
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Log in to DockerHub
+      uses: docker/login-action@v3
+      with:
+        username: glatzel
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Build Docker image
+      run: |
+        VERSION==pwsh -f './scripts/get-runner-version.ps1'
+        echo "github runner version ${VERSION}"
+        docker build \
+          --build-arg RUNNER_VERSION=${VERSION}
+          -t glatzel/github-action-runner:latest \
+          -t glatzel/github-action-runner:${VERSION} \
+          .
+
+        docker push glatzel/github-action-runner:latest
+        docker push glatzel/github-action-runner:${VERSION}
