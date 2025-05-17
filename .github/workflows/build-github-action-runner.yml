@@ -19,7 +19,7 @@ jobs:
 
     - name: Build Docker image
       run: |
-        VERSION==pwsh -f './scripts/get-runner-version.ps1'
+        VERSION=pwsh -f './scripts/get-runner-version.ps1'
         echo "github runner version ${VERSION}"
         docker build \
           --build-arg RUNNER_VERSION=${VERSION}
