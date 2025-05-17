@@ -1,4 +1,4 @@
-Param ($owner="Glatzel",[string]$repo)
+Param ($owner = "Glatzel", [string]$repo)
 if (-not $repo) {
     $repo = Read-Host "Github Repository name"
 }
@@ -17,7 +17,7 @@ Foreach ($runner in $runnerList) {
             continue
         }
         If (($runner.name -like "dockerNode-*") -and ($runner.status -eq "offline")) {
-            write-host "Unregsitering old stale runner: $($runner.name)"
+            write-host "Unregistering old stale runner: $($runner.name)"
             gh api --method DELETE -H "Accept: application/vnd.github.v3+json" "/repos/$owner/$repo/actions/runners/$($runner.id)"
         }
     }
