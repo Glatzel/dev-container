@@ -9,8 +9,6 @@ if [$USE_PROXY]; then \
     git config --global https.proxy 'http://host.docker.internal:10808'; \
 fi
 
-sudo su - runner
-
 GH_OWNER=$GH_OWNER
 GH_REPOSITORY=$GH_REPOSITORY
 GH_TOKEN=$GH_TOKEN

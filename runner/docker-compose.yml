@@ -1,10 +1,9 @@
 services:
   runner:
     image: glatzel/github-action-runner:latest
-    user: runner
-    command: ./start-runner.sh
     environment:
       - GH_OWNER=${GH_OWNER}
       - GH_REPOSITORY=${GH_REPOSITORY}
       - GH_TOKEN=${GH_TOKEN}
-      - USE_PROXY=${USE_PROXY}
+      - HTTP_PROXY=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}

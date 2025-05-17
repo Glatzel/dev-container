@@ -19,7 +19,7 @@ jobs:
 
     - name: Build Docker image
       run: docker build -t glatzel/dev-container:latest .
-      working-directory: image
+      working-directory: image/dev-container
 
     - name: Push Docker image
       run: |
