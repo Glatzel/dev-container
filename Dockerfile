@@ -35,5 +35,3 @@ RUN rm -rf /var/lib/apt/lists/*
 # Install Pixi and global tools
 RUN curl -fsSL https://pixi.sh/install.sh | sh
 COPY ./pixi-global.toml /root/.pixi/manifests/pixi-global.toml
-RUN pixi global update
-RUN pixi clean cache -y
