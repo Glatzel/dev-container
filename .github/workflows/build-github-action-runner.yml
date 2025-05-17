@@ -33,5 +33,7 @@ jobs:
           .
       working-directory: image
 
+    - name: Push Docker image
+      run: |
         docker push glatzel/github-action-runner:latest
-        docker push glatzel/github-action-runner:${VERSION}
+        docker push glatzel/github-action-runner:${{ steps.get-version.outputs.version }}
