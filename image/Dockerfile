@@ -5,16 +5,19 @@ ENV PATH="/root/.cargo/bin:/root/.pixi/bin:${PATH}"
 # # Update and install common dependencies
 RUN apt-get update && apt-get install -y \
 #     aria2 \
-#     build-essential \
+    build-essential \
     curl \
     git \
-#     jq \
-#     libsqlite3-dev \
-#     libtool \
-#     p7zip-full \
-#     p7zip-rar \
-#     pkg-config \
-#     software-properties-common \
+    jq \
+    libssl-dev \
+    libffi-dev \
+    libsqlite3-dev \
+    libtool \
+    p7zip-full \
+    p7zip-rar \
+    pkg-config \
+    software-properties-common \
+    unzip \
     wget
 
 # # Install Rust
@@ -47,6 +50,7 @@ RUN if [ -n "${RUNNER_VERSION}" ]; then \
       curl -O -L https://github.com/actions/runner/releases/download/v${RUNNER_VERSION}/actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz && \
       tar xzf actions-runner-linux-x64-${RUNNER_VERSION}.tar.gz; \
     fi
+# install some additional dependencies
 RUN if [ -n "${RUNNER_VERSION}" ]; then \
         chown -R runner ~runner && /home/runner/actions-runner/bin/installdependencies.sh; \
     fi
