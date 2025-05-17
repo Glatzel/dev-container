@@ -16,7 +16,7 @@ RUN useradd -m runner && \
 RUN chown -R runner ~runner && /home/runner/actions-runner/bin/installdependencies.sh
 
 # Add and make the start script executable
-ADD scripts/start-runner.sh start-runner.sh
+ADD ./github-action-runner/scripts/start-runner.sh start-runner.sh
 
 # make the script executable
 RUN chmod +x start-runner.sh; 
