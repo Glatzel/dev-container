@@ -12,7 +12,7 @@
   "mounts": [
     "source=${localWorkspaceFolder}/workspace,target=/workspace,type=bind"
   ],
-  "postCreateCommand": "pwsh -f '/workspace/.devcontainer/container-startup.ps1' ",
+  "postCreateCommand": "pwsh -f '/workspace/.devcontainer/post-create.ps1' ",
   "customizations": {
     "vscode": {
       "settings": {
