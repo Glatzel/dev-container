@@ -55,5 +55,5 @@ ADD scripts/start-runner.sh start-runner.sh
 
 # make the script executable
 RUN if [ -n "${RUNNER_VERSION}" ]; then \
-        chmod +x start-runner.sh;
+        chmod +x start-runner.sh; \
     fi
